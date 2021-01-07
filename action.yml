@@ -1,0 +1,9 @@
+name: 'Github Rubocop Action'
+description: 'Runs rubocop linter'
+author: 'Thomas HUMMEL'
+branding:
+  icon: 'alert-triangle'
+  color: 'red'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
