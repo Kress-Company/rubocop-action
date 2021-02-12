@@ -46,7 +46,6 @@ end
 def update_check(id, conclusion, output)
   body = {
     'name' => @check_name,
-    'head_sha' => @GITHUB_SHA,
     'status' => 'completed',
     'completed_at' => Time.now.iso8601,
     'conclusion' => conclusion,
