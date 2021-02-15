@@ -58,6 +58,11 @@ def update_check(id, conclusion, output)
 
   resp = http.patch(path, body.to_json, @headers)
 
+  #puts path
+  #puts body
+  #puts @headers
+  #puts resp.body
+
   raise resp.message if resp.code.to_i >= 300
 end
 
@@ -98,14 +103,27 @@ def run_rubocop
         "annotation_level": annotation_level,
         'message' => message
       )
+
+      puts "#{path}:#{location['start_line']} #{message} (#{annotation_level})"
     end
   end
 
-  output = {
-    "title": @check_name,
-    "summary": "#{count} offense(s) found",
-    'annotations' => annotations
-  }
+  auto_correct_cmd = "rubocop -A #{annotations.map { |a| a['path'] }.uniq.join(" ")}"
+  puts "Auto correct with: #{auto_correct_cmd}"
+
+  if annotations.length > 50
+    output = {
+      "title": @check_name,
+      "summary": "#{count} offenses found (only first 50 shown)\nAuto correct with: `#{auto_correct_cmd}`",
+      'annotations' => annotations.first(50)
+    }
+  else
+    output = {
+      "title": @check_name,
+      "summary": "#{count} offense(s) found\nAuto correct with: `#{auto_correct_cmd}`",
+      'annotations' => annotations
+    }
+  end
 
   { 'output' => output, 'conclusion' => conclusion }
 end
