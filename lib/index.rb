@@ -58,11 +58,6 @@ def update_check(id, conclusion, output)
 
   resp = http.patch(path, body.to_json, @headers)
 
-  #puts path
-  #puts body
-  #puts @headers
-  #puts resp.body
-
   raise resp.message if resp.code.to_i >= 300
 end
 
