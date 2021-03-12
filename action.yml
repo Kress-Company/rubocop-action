@@ -1,6 +1,6 @@
 name: 'Github Rubocop Action'
 description: 'Runs rubocop linter'
-author: 'Thomas HUMMEL'
+author: 'Andrew Kress'
 branding:
   icon: 'alert-triangle'
   color: 'red'
